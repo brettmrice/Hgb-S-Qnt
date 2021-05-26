@@ -4,17 +4,20 @@ function setup() {
   wH = windowHeight;
   noStroke();
   
+  // min display box
+  minDisp = 500;
+  
   // white box
-  if(wW > 400) {
-    inputArea_startX = (wW/2) - (400/2);
-    inputArea_endX = 400;
+  if(wW > minDisp) {
+    inputArea_startX = (wW/2) - (minDisp/2);
+    inputArea_endX = minDisp;
   } else {
     inputArea_startX = 0;
     inputArea_endX = wW;
   }
-  if(wH > 400) {
-    inputArea_startY = (wH/2) - (400/2);
-    inputArea_endY = 400;
+  if(wH > minDisp) {
+    inputArea_startY = (wH/2) - (minDisp/2);
+    inputArea_endY = minDisp;
   } else {
     inputArea_startY = 0;
     inputArea_endY = wH;
@@ -46,12 +49,18 @@ function setup() {
   totalInp.attribute('inputmode', 'decimal');
   totalInp.attribute('placeholder', 'Click!');
   totalInp.style('text-align', 'center');
-  totalInp.style('font-size', '150%');
+  totalInp.style('font-size', '200%');
+  /*totalInp.style('font-size', 
+                str('\'' + 
+                    min(min(inputArea_endX, 
+                            inputArea_endY), 
+                        minDisp/250*100) + 
+                    '%\''));//'200%');*/
   totalInp.style('border', '0');
   //totalInp.style('box-shadow', '0 0 15px 4px rgba(0,0,0,0.06)');
   totalInp.style('background-color', 'rgb(165, 172, 175)');
   totalInp.size(totalBRX);
-  totalInp.position(totalTLX*1.02, totalTLY*1.02);
+  totalInp.position(totalTLX*1.02, totalTLY*1.03);
   //totalInp.attribute('type', 'hidden');
   
   hgbsTLX = wW/2 + 10;
@@ -62,7 +71,7 @@ function setup() {
   hgbsInp.attribute('inputmode', 'decimal');
   hgbsInp.attribute('placeholder', 'Click!');
   hgbsInp.style('text-align', 'center');
-  hgbsInp.style('font-size', '150%');
+  hgbsInp.style('font-size', '200%');
   hgbsInp.style('border', '0');
   //hgbsInp.style('box-shadow', '0 0 15px 4px rgba(0,0,0,0.06)');
   hgbsInp.style('background-color', 'rgb(165, 172, 175)');
@@ -70,8 +79,8 @@ function setup() {
   hgbsInp.position(hgbsTLX*1.02, hgbsTLY*1.02);
   //hgbsInp.attribute('type', 'hidden');
   
-  resetTLX = (inputArea_startX + (min(inputArea_endX, 400)*0.8));
-  resetTLY = (inputArea_startY + (min(inputArea_endY, 400)*0.9));
+  resetTLX = (inputArea_startX + (min(inputArea_endX, minDisp)*0.8));
+  resetTLY = (inputArea_startY + (min(inputArea_endY, minDisp)*0.9));
   resetBRX = (inputArea_startX + inputArea_endX)*0.99 - resetTLX;
   resetBRY = (inputArea_startY + inputArea_endY)*0.99 - resetTLY;
   
@@ -86,8 +95,8 @@ function draw() {
   fill(255);
   
   rect(inputArea_startX, inputArea_startY, 
-       inputArea_endX, min(max(wH/2, 400), 400));
-  textSize(min(min(wW, wH), 400)*0.15);
+       inputArea_endX, min(max(wH/2, minDisp), minDisp));
+  textSize(min(min(wW, wH), minDisp)*0.15);
   textAlign(CENTER, CENTER);
   fill(0);
   text('Hgb S Qnt', wW/2, inputArea_startY + inputArea_endY/8);
@@ -99,7 +108,7 @@ function draw() {
   noStroke();
   
   // left side
-  textSize(min(min(wW, wH), 400)*0.05);
+  textSize(min(min(wW, wH), minDisp)*0.05);
   textAlign(RIGHT, CENTER);
   text('Total Hgb :', wW/2, valueStart);
   text('# Hgb S :', wW/2, valueStart + valueInt);
@@ -111,8 +120,8 @@ function draw() {
   
   // right side
   fill('rgb(165, 172, 175)');
-  rect(totalTLX, totalTLY, totalBRX*1.2, totalBRY - totalTLY);
-  rect(hgbsTLX, hgbsTLY, totalBRX*1.2, hgbsBRY - hgbsTLY);
+  //rect(totalTLX, totalTLY, totalBRX*1.2, totalBRY - totalTLY);
+  //rect(hgbsTLX, hgbsTLY, totalBRX*1.2, hgbsBRY - hgbsTLY);
   fill(0);
   textAlign(CENTER, CENTER);
   text(totalDisplay, 
@@ -131,7 +140,7 @@ function draw() {
   rect(resetTLX, resetTLY, resetBRX, resetBRY);
   fill(0, 100);
   textAlign(CENTER, CENTER);
-  textSize(min(min(wW, wH), 400)*0.04);
+  textSize(min(min(wW, wH), minDisp)*0.04);
   text('Reset', 
        resetTLX + (resetBRX)/2, 
        resetTLY + (resetBRY)/2);
@@ -140,7 +149,7 @@ function draw() {
     stroke(68, 214, 44, click_highlight);
     strokeWeight(5*abs(sin(ch_inc)));
     noFill();
-    rect(totalTLX, totalTLY, totalBRX*1.2, totalBRY - totalTLY);
+    //rect(totalTLX, totalTLY, totalBRX*1.2, totalBRY - totalTLY);
     noStroke();
     strokeWeight(1);
     
@@ -155,7 +164,7 @@ function draw() {
     stroke(68, 214, 44, click_highlight);
     strokeWeight(5*abs(sin(ch_inc)));
     noFill();
-    rect(hgbsTLX, hgbsTLY, hgbsBRX*1.2, hgbsBRY - hgbsTLY);
+    //rect(hgbsTLX, hgbsTLY, hgbsBRX*1.2, hgbsBRY - hgbsTLY);
     noStroke();
     strokeWeight(1);
     
@@ -166,6 +175,39 @@ function draw() {
       hgbsInp.attribute('placeholder', '##.#');
     }
   }
+  
+  totalValue = float(totalInp.value());
+  if(isNaN(totalValue)){
+    totalInp.style('background-color', 'rgb(165, 172, 175)');
+    totalValid = 0;
+  } else if(totalValue > 20 | totalValue < 0) {
+    totalInp.style('background-color', 'red');
+    totalValid = 0;
+  } else {
+    totalInp.style('background-color', 'rgb(165, 172, 175)');
+    totalValid = 1;
+  }
+  hgbsValue = float(hgbsInp.value());
+  if(isNaN(hgbsValue)){
+    hgbsInp.style('background-color', 'rgb(165, 172, 175)');
+    hgbsValid = 0;
+  } else if(hgbsValue > 100 | hgbsValue < 0) {
+    hgbsInp.style('background-color', 'red');
+    hgbsValid = 0;
+  } else {
+    hgbsInp.style('background-color', 'rgb(165, 172, 175)');
+    hgbsValid = 1;
+  }
+  
+  if(totalValid === 1 & hgbsValid === 1) {
+    hgbsABSDisplay = round(totalInp.value() * hgbsValue/100, 1).toFixed(1);
+    hgboRELDisplay = round(100 - hgbsValue, 1).toFixed(1);
+    hgboABSDisplay = round(totalInp.value() * hgboRELDisplay/100, 1).toFixed(1);
+  } else {
+    hgbsABSDisplay = '?';
+    hgboRELDisplay = '?';
+    hgboABSDisplay = '?';
+  }
 }
 
 function windowResized() {
@@ -174,16 +216,16 @@ function windowResized() {
   wH = windowHeight;
   
   // white box
-  if(wW > 400) {
-    inputArea_startX = (wW/2) - (400/2);
-    inputArea_endX = 400;
+  if(wW > minDisp) {
+    inputArea_startX = (wW/2) - (minDisp/2);
+    inputArea_endX = minDisp;
   } else {
     inputArea_startX = 0;
     inputArea_endX = wW;
   }
-  if(wH > 400) {
-    inputArea_startY = (wH/2) - (400/2);
-    inputArea_endY = 400;
+  if(wH > minDisp) {
+    inputArea_startY = (wH/2) - (minDisp/2);
+    inputArea_endY = minDisp;
   } else {
     inputArea_startY = 0;
     inputArea_endY = wH;
@@ -215,13 +257,20 @@ function windowResized() {
   hgbsBRX = inputArea_endX/4;
   hgbsBRY = hgbsTLY + valueInt/1.1;
   
-  resetTLX = (inputArea_startX + (min(inputArea_endX, 400)*0.8));
-  resetTLY = (inputArea_startY + (min(inputArea_endY, 400)*0.9));
+  resetTLX = (inputArea_startX + (min(inputArea_endX, minDisp)*0.8));
+  resetTLY = (inputArea_startY + (min(inputArea_endY, minDisp)*0.9));
   resetBRX = (inputArea_startX + inputArea_endX)*0.99 - resetTLX;
   resetBRY = (inputArea_startY + inputArea_endY)*0.99 - resetTLY;
+  
+  totalInp.size(totalBRX);
+  totalInp.position(totalTLX*1.02, totalTLY*1.02);
+  
+  hgbsInp.size(hgbsBRX);
+  hgbsInp.position(hgbsTLX*1.02, hgbsTLY*1.02);
 }
 
 function mouseClicked() {
+  /*
   if (mouseX >= totalTLX & mouseY >= totalTLY &
       mouseX <= (totalTLX + totalBRX) & 
       mouseY <= totalBRY) {
@@ -232,7 +281,9 @@ function mouseClicked() {
             mouseY <= hgbsBRY) {
     hgbsClick = 1;
     totalClick = 0;
-  } else if(mouseX >= resetTLX & mouseY >= resetTLY &
+  } */
+  
+  if(mouseX >= resetTLX & mouseY >= resetTLY &
             mouseX <= (resetTLX + resetBRX) & 
             mouseY <= (resetTLY + resetBRY)) {
     totalInput = [0, 0, 0];
@@ -251,7 +302,9 @@ function mouseClicked() {
     hgboRELDisplay = '?';
     hgboABSDisplay = '?';
     
+    totalInp.value('');
     totalInp.attribute('placeholder', 'Click!');
+    hgbsInp.value('');
     hgbsInp.attribute('placeholder', 'Click!');
   } else {
     totalClick = 0;
