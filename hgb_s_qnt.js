@@ -28,9 +28,6 @@ function setup() {
   totalClick = 0;
   totalKeyCount = 0;
   totalSum = 0;
-  totalInp = createInput('', 'decimal');
-  totalInp.attribute('inputmode', 'decimal');
-  totalInp.position('0', '0');
   
   hgbsInput = [0, 0, 0];
   hgbsDisplay = 'Click!';
@@ -45,14 +42,36 @@ function setup() {
   totalTLY = valueStart - valueInt/2;
   totalBRX = inputArea_endX/4;
   totalBRY = totalTLY + valueInt/1.1;
+  totalInp = createInput('', 'decimal');
+  totalInp.attribute('inputmode', 'decimal');
+  totalInp.attribute('placeholder', 'Click!');
+  totalInp.style('text-align', 'center');
+  totalInp.style('font-size', '150%');
+  totalInp.style('border', '0');
+  //totalInp.style('box-shadow', '0 0 15px 4px rgba(0,0,0,0.06)');
+  totalInp.style('background-color', 'rgb(165, 172, 175)');
+  totalInp.size(totalBRX);
+  totalInp.position(totalTLX*1.02, totalTLY*1.02);
+  //totalInp.attribute('type', 'hidden');
   
   hgbsTLX = wW/2 + 10;
   hgbsTLY = (valueStart + valueInt*2) - valueInt/2;
   hgbsBRX = inputArea_endX/4;
   hgbsBRY = hgbsTLY + valueInt/1.1;
+  hgbsInp = createInput('', 'decimal');
+  hgbsInp.attribute('inputmode', 'decimal');
+  hgbsInp.attribute('placeholder', 'Click!');
+  hgbsInp.style('text-align', 'center');
+  hgbsInp.style('font-size', '150%');
+  hgbsInp.style('border', '0');
+  //hgbsInp.style('box-shadow', '0 0 15px 4px rgba(0,0,0,0.06)');
+  hgbsInp.style('background-color', 'rgb(165, 172, 175)');
+  hgbsInp.size(hgbsBRX);
+  hgbsInp.position(hgbsTLX*1.02, hgbsTLY*1.02);
+  //hgbsInp.attribute('type', 'hidden');
   
-  resetTLX = (inputArea_startX + inputArea_endX)*0.88;
-  resetTLY = (inputArea_startY + inputArea_endY)*0.93;
+  resetTLX = (inputArea_startX + (min(inputArea_endX, 400)*0.8));
+  resetTLY = (inputArea_startY + (min(inputArea_endY, 400)*0.9));
   resetBRX = (inputArea_startX + inputArea_endX)*0.99 - resetTLX;
   resetBRY = (inputArea_startY + inputArea_endY)*0.99 - resetTLY;
   
@@ -96,7 +115,6 @@ function draw() {
   rect(hgbsTLX, hgbsTLY, totalBRX*1.2, hgbsBRY - hgbsTLY);
   fill(0);
   textAlign(CENTER, CENTER);
-  //text(totalDisplay, (wW/2 + 10) + wW/12, valueStart);
   text(totalDisplay, 
        totalTLX + (totalBRX*1.2)/2, valueStart);
   text(hgbsABSDisplay, 
@@ -129,7 +147,8 @@ function draw() {
     click_highlight = 255*abs(sin(ch_inc));
     ch_inc += PI/55;
     if(totalSum === 0) {
-      totalDisplay = '##.#';
+      //totalDisplay = '##.#';
+      totalInp.attribute('placeholder', '##.#');
     }
   }
   if(hgbsClick === 1) {
@@ -143,7 +162,8 @@ function draw() {
     click_highlight = 255*abs(sin(ch_inc));
     ch_inc += PI/50;
     if(hgbsSum === 0) {
-      hgbsDisplay = '##.#';
+      //hgbsDisplay = '##.#';
+      hgbsInp.attribute('placeholder', '##.#');
     }
   }
 }
@@ -195,8 +215,8 @@ function windowResized() {
   hgbsBRX = inputArea_endX/4;
   hgbsBRY = hgbsTLY + valueInt/1.1;
   
-  resetTLX = (inputArea_startX + inputArea_endX)*0.88;
-  resetTLY = (inputArea_startY + inputArea_endY)*0.93;
+  resetTLX = (inputArea_startX + (min(inputArea_endX, 400)*0.8));
+  resetTLY = (inputArea_startY + (min(inputArea_endY, 400)*0.9));
   resetBRX = (inputArea_startX + inputArea_endX)*0.99 - resetTLX;
   resetBRY = (inputArea_startY + inputArea_endY)*0.99 - resetTLY;
 }
@@ -230,6 +250,9 @@ function mouseClicked() {
     hgbsABSDisplay = '?';
     hgboRELDisplay = '?';
     hgboABSDisplay = '?';
+    
+    totalInp.attribute('placeholder', 'Click!');
+    hgbsInp.attribute('placeholder', 'Click!');
   } else {
     totalClick = 0;
     hgbsClick = 0;
@@ -294,6 +317,9 @@ function touchStarted() {
     hgbsABSDisplay = '?';
     hgboRELDisplay = '?';
     hgboABSDisplay = '?';
+    
+    totalInp.attribute('placeholder', 'Click!');
+    hgbsInp.attribute('placeholder', 'Click!');
   } else {
     totalClick = 0;
     hgbsClick = 0;
