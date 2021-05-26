@@ -28,6 +28,8 @@ function setup() {
   totalClick = 0;
   totalKeyCount = 0;
   totalSum = 0;
+  totalInp = createInput('', 'decimal');
+  totalInp.position('0', '0');
   
   hgbsInput = [0, 0, 0];
   hgbsDisplay = 'Click!';
