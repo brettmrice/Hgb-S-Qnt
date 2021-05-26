@@ -29,6 +29,7 @@ function setup() {
   totalKeyCount = 0;
   totalSum = 0;
   totalInp = createInput('', 'decimal');
+  totalInp.attribute('inputmode', 'decimal');
   totalInp.position('0', '0');
   
   hgbsInput = [0, 0, 0];
@@ -262,4 +263,41 @@ function keyTyped() {
 
   // uncomment to prevent any default behavior
   //return false;
+}
+
+function touchStarted() {
+  if (mouseX >= totalTLX & mouseY >= totalTLY &
+      mouseX <= (totalTLX + totalBRX) & 
+      mouseY <= totalBRY) {
+    totalClick = 1;
+    hgbsClick = 0;
+  } else if(mouseX >= hgbsTLX & mouseY >= hgbsTLY &
+            mouseX <= (hgbsTLX + hgbsBRX) & 
+            mouseY <= hgbsBRY) {
+    hgbsClick = 1;
+    totalClick = 0;
+  } else if(mouseX >= resetTLX & mouseY >= resetTLY &
+            mouseX <= (resetTLX + resetBRX) & 
+            mouseY <= (resetTLY + resetBRY)) {
+    totalInput = [0, 0, 0];
+    totalDisplay = 'Click!';
+    totalClick = 0;
+    totalKeyCount = 0;
+    totalSum = 0;
+
+    hgbsInput = [0, 0, 0];
+    hgbsDisplay = 'Click!';
+    hgbsClick = 0;
+    hgbsKeyCount = 0;
+    hgbsSum = 0;
+    
+    hgbsABSDisplay = '?';
+    hgboRELDisplay = '?';
+    hgboABSDisplay = '?';
+  } else {
+    totalClick = 0;
+    hgbsClick = 0;
+  }
+  click_highlight = 0;
+  ch_inc = 0;
 }
