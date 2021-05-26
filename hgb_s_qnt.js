@@ -48,6 +48,11 @@ function setup() {
   hgbsBRX = inputArea_endX/4;
   hgbsBRY = hgbsTLY + valueInt/1.1;
   
+  resetTLX = (inputArea_startX + inputArea_endX)*0.88;
+  resetTLY = (inputArea_startY + inputArea_endY)*0.93;
+  resetBRX = (inputArea_startX + inputArea_endX)*0.99 - resetTLX;
+  resetBRY = (inputArea_startY + inputArea_endY)*0.99 - resetTLY;
+  
   hgbsABSDisplay = '?';
   hgboRELDisplay = '?';
   hgboABSDisplay = '?';
@@ -99,6 +104,16 @@ function draw() {
        totalTLX + (totalBRX*1.2)/2, valueStart + valueInt*3);
   text(hgboABSDisplay, 
        totalTLX + (totalBRX*1.2)/2, valueStart + valueInt*4);
+  
+  // reset button
+  fill('rgb(165, 172, 175)');  
+  rect(resetTLX, resetTLY, resetBRX, resetBRY);
+  fill(0, 100);
+  textAlign(CENTER, CENTER);
+  textSize(min(min(wW, wH), 400)*0.04);
+  text('Reset', 
+       resetTLX + (resetBRX)/2, 
+       resetTLY + (resetBRY)/2);
   
   if(totalClick === 1) {
     stroke(68, 214, 44, click_highlight);
@@ -176,6 +191,11 @@ function windowResized() {
   hgbsTLY = (valueStart + valueInt*2) - valueInt/2;
   hgbsBRX = inputArea_endX/4;
   hgbsBRY = hgbsTLY + valueInt/1.1;
+  
+  resetTLX = (inputArea_startX + inputArea_endX)*0.88;
+  resetTLY = (inputArea_startY + inputArea_endY)*0.93;
+  resetBRX = (inputArea_startX + inputArea_endX)*0.99 - resetTLX;
+  resetBRY = (inputArea_startY + inputArea_endY)*0.99 - resetTLY;
 }
 
 function mouseClicked() {
@@ -189,6 +209,24 @@ function mouseClicked() {
             mouseY <= hgbsBRY) {
     hgbsClick = 1;
     totalClick = 0;
+  } else if(mouseX >= resetTLX & mouseY >= resetTLY &
+            mouseX <= (resetTLX + resetBRX) & 
+            mouseY <= (resetTLY + resetBRY)) {
+    totalInput = [0, 0, 0];
+    totalDisplay = 'Click!';
+    totalClick = 0;
+    totalKeyCount = 0;
+    totalSum = 0;
+
+    hgbsInput = [0, 0, 0];
+    hgbsDisplay = 'Click!';
+    hgbsClick = 0;
+    hgbsKeyCount = 0;
+    hgbsSum = 0;
+    
+    hgbsABSDisplay = '?';
+    hgboRELDisplay = '?';
+    hgboABSDisplay = '?';
   } else {
     totalClick = 0;
     hgbsClick = 0;
