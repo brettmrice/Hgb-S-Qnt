@@ -342,7 +342,7 @@ function keyTyped() {
 }
 
 function touchStarted() {
-  if (mouseX >= totalTLX & mouseY >= totalTLY &
+  /*if (mouseX >= totalTLX & mouseY >= totalTLY &
       mouseX <= (totalTLX + totalBRX) & 
       mouseY <= totalBRY) {
     totalClick = 1;
@@ -379,4 +379,7 @@ function touchStarted() {
   }
   click_highlight = 0;
   ch_inc = 0;
+  */
+  minDisp = wW;
+  windowResized();
 }
