@@ -237,12 +237,14 @@ function windowResized() {
   valueStart = inputArea_startY + inputArea_endY/4 + valueInt;
   
   totalInput = [0, 0, 0];
-  totalDisplay = 'Click!';
+  //totalDisplay = 'Click!';
+  totalDisplay = '';
   totalClick = 0;
   totalKeyCount = 0;
   
   hgbsInput = [0, 0, 0];
-  hgbsDisplay = 'Click!';
+  //hgbsDisplay = 'Click!';
+  hgbsDisplay = '';
   hgbsClick = 0;
   hgbsKeyCount = 0;
   
